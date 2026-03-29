@@ -1,81 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Blíssea Oils</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blissea Oils</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Razorpay -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
 <header>
-  <h1>Blíssea Oils</h1>
+  <h2 class="logo">Blissea Oils</h2>
   <nav>
-    <a href="#">Home</a>
-    <a href="#">Shop</a>
+    <a href="#products">Shop</a>
     <a href="#">About</a>
-    <a href="#">Contact</a>
+    <a href="track.html">Track Order</a>
+    <a href="#" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</a>
   </nav>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-  <h2>Feel Better, Naturally</h2>
-  <p>Plant-powered oils for sleep, pain & stress relief</p>
-  <button>Shop Now</button>
-</section>
-
-<!-- CATEGORIES -->
-<section class="categories">
-  <h2>Shop by Concern</h2>
-  <div class="grid">
-    <div>😴 Sleep</div>
-    <div>😌 Stress</div>
-    <div>💪 Pain Relief</div>
-    <div>💇 Hair Growth</div>
+  <div class="hero-text">
+    <h1>Feel Better. Naturally.</h1>
+    <p>100% Natural Oils for Pain, Sleep & Hair Wellness</p>
+    <button onclick="scrollToProducts()">Shop Now</button>
   </div>
+  <img src="images/hero.jpg" class="hero-img">
 </section>
 
 <!-- PRODUCTS -->
-<section class="products">
+<section id="products">
   <h2>Best Sellers</h2>
-  <div class="grid">
-    <div class="card">
-      <img src="images/sleep.jpg">
-      <h3>Stressless Sleep</h3>
-      <p>₹499</p>
-    </div>
 
-    <div class="card">
+  <div class="product-grid">
+
+    <div class="product">
       <img src="images/pain.jpg">
       <h3>Pain Relief Oil</h3>
-      <p>₹399</p>
+      <p>₹499</p>
+      <button onclick="addToCart('Pain Relief Oil', 499)">Add</button>
     </div>
 
-    <div class="card">
-      <img src="images/hair.jpg">
-      <h3>Hair Growth Oil</h3>
-      <p>₹599</p>
+    <div class="product">
+      <img src="images/sleep.jpg">
+      <h3>Stress Sleep Roll-on</h3>
+      <p>₹399</p>
+      <button onclick="addToCart('Stress Sleep Roll-on', 399)">Add</button>
     </div>
+
+    <div class="product">
+      <img src="images/menhair.jpg">
+      <h3>Men Hair Growth Oil</h3>
+      <p>₹599</p>
+      <button onclick="addToCart('Men Hair Growth Oil', 599)">Add</button>
+    </div>
+
   </div>
 </section>
 
-<!-- WHY US -->
-<section class="why">
-  <h2>Why Blíssea?</h2>
-  <p>100% Natural • No Chemicals • Handmade</p>
-</section>
+<!-- CART DRAWER -->
+<div id="cart" class="cart">
+  <h3>Your Cart</h3>
+  <ul id="cart-items"></ul>
+  <p>Total: ₹<span id="cart-total">0</span></p>
+  <button onclick="payNow()" class="checkout">Pay Now</button>
+</div>
 
-<!-- TESTIMONIAL -->
-<section class="testimonials">
-  <h2>What Customers Say</h2>
-  <p>"Best sleep oil I’ve ever used!"</p>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Blíssea Oils</p>
-</footer>
+<script src="script.js"></script>
 
 </body>
 </html>

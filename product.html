@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Blíssea Oils</h1>
+</header>
+
+<div class="product-page">
+
+  <div class="product-image">
+    <img id="product-img" src="">
+  </div>
+
+  <div class="product-info">
+    <h2 id="product-name"></h2>
+    <p id="product-price"></p>
+    <p>100% natural essential oil blend for effective results.</p>
+
+    <button onclick="addCurrentProduct()">Add to Cart</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+document.getElementById("product-name").innerText = params.get("name");
+document.getElementById("product-price").innerText = "₹" + params.get("price");
+document.getElementById("product-img").src = params.get("img");
+
+function addCurrentProduct(){
+  addToCart(
+    params.get("name"),
+    parseInt(params.get("price")),
+    params.get("img")
+  );
+}
+</script>
+
+</body>
+</html>
