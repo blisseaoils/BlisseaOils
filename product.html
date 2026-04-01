@@ -1,26 +1,172 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Product</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details | Blíssea Oils</title>
 <link rel="stylesheet" href="style.css">
+
+<style>
+.product-page {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 30px;
+}
+
+.product-page img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+}
+
+.product-info {
+  max-width: 500px;
+}
+
+.product-info h2 {
+  font-size: 30px;
+}
+
+.price {
+  font-size: 22px;
+  color: #2d5a2d;
+  margin: 10px 0;
+}
+
+.desc {
+  margin: 15px 0;
+  color: #555;
+}
+
+.review-box {
+  margin-top: 30px;
+}
+
+.review {
+  background: #f5f5f5;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+input, textarea {
+  width: 100%;
+  margin: 5px 0;
+  padding: 8px;
+}
+</style>
+
 </head>
 
 <body>
 
-<h1>Pain Relief Oil</h1>
+<header>
+  <h1>Blíssea Oils</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="track.html">Track Order</a>
+  </nav>
+</header>
 
-<img src="images/pain.jpg" width="300">
+<section class="product-page">
 
-<p>₹499</p>
+  <img id="product-img">
 
-<p>
-Relieves muscle pain, joint stiffness and stress.
-Made with natural essential oils.
-</p>
+  <div class="product-info">
+    <h2 id="product-name"></h2>
+    <p class="price" id="product-price"></p>
+    <p class="desc" id="product-desc"></p>
 
-<button onclick="addToCart('Pain Relief Oil',499)">Add to Cart</button>
+    <button onclick="addToCart()">Add to Cart</button>
+    <button onclick="buyNow()">Buy Now</button>
 
-<script src="script.js"></script>
+    <!-- REVIEWS -->
+    <div class="review-box">
+      <h3>Customer Reviews</h3>
+      <div id="reviews"></div>
+
+      <h4>Add Review</h4>
+      <input type="text" id="name" placeholder="Your name">
+      <textarea id="comment" placeholder="Your review"></textarea>
+      <button onclick="addReview()">Submit</button>
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+let products = [
+  {
+    name: "Men Hair Oil Light",
+    price: 230,
+    img: "images/menhair.jpg",
+    desc: "Promotes thicker, stronger hair naturally."
+  },
+  {
+    name: "Pain Recovery Roll On
+    price: 156
+    img: "images/pain.jpg",
+    desc: "Instant relief from muscle and joint pain."
+  },
+  {
+    name: "Stressless Sleep Oil Blend",
+    price: 105
+    img: "images/sleep.jpg",
+    desc: "Helps you relax and sleep better."
+  }
+];
+
+// GET PRODUCT INDEX FROM URL
+let params = new URLSearchParams(window.location.search);
+let index = params.get("id") || 0;
+
+let product = products[index];
+
+// LOAD PRODUCT DATA
+document.getElementById("product-img").src = product.img;
+document.getElementById("product-name").innerText = product.name;
+document.getElementById("product-price").innerText = "₹" + product.price;
+document.getElementById("product-desc").innerText = product.desc;
+
+// CART
+function addToCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Added to cart");
+}
+
+// BUY NOW
+function buyNow() {
+  alert("Order placed! (Add payment gateway later)");
+}
+
+// REVIEWS
+let reviewList = JSON.parse(localStorage.getItem("reviews_" + index)) || [];
+
+function displayReviews() {
+  let box = document.getElementById("reviews");
+  box.innerHTML = "";
+  reviewList.forEach(r => {
+    box.innerHTML += `<div class="review"><b>${r.name}</b><br>${r.comment}</div>`;
+  });
+}
+
+function addReview() {
+  let name = document.getElementById("name").value;
+  let comment = document.getElementById("comment").value;
+
+  if(name && comment) {
+    reviewList.push({name, comment});
+    localStorage.setItem("reviews_" + index, JSON.stringify(reviewList));
+    displayReviews();
+  }
+}
+
+displayReviews();
+</script>
 
 </body>
 </html>
