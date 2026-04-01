@@ -1,41 +1,144 @@
 <!DOCTYPE html>
-<html>
-<head><title>Cart</title></head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart | Blíssea Oils</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+.cart-container {
+  padding: 20px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.cart-item img {
+  width: 70px;
+  border-radius: 8px;
+}
+
+.total {
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+.checkout-btn {
+  padding: 12px 20px;
+  background: #5c7c5c;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+</style>
+
+</head>
+
 <body>
 
-<h2>Your Cart</h2>
-<div id="cart"></div>
-<button onclick="checkout()">Pay Now</button>
+<header>
+  <h2>Your Cart</h2>
+</header>
 
-<script>
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let box = document.getElementById("cart");
+<div class="cart-container" id="cart-box"></div>
 
-cart.forEach(p=>{
-  box.innerHTML += `<p>${p.name} - ₹${p.price}</p>`;
-});
+<h3 class="total" id="total"></h3>
 
-function checkout(){
-  alert("Connect Razorpay here");
-}
-</script>
+<button class="checkout-btn" onclick="checkout()">Pay Now</button>
 
+<!-- Razorpay -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-<script>
-function checkout(){
+<!-- Firebase + Cart Logic -->
+<script type="module">
+import { db } from './firebase.js';
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let box = document.getElementById("cart-box");
+let totalBox = document.getElementById("total");
+
+function displayCart() {
+  box.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price;
+
+    box.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.img}">
+        <div>
+          <h4>${item.name}</h4>
+          <p>₹${item.price}</p>
+        </div>
+        <button onclick="removeItem(${index})">❌</button>
+      </div>
+    `;
+  });
+
+  totalBox.innerText = "Total: ₹" + total;
+}
+
+window.removeItem = function(index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  displayCart();
+}
+
+// 🔥 CHECKOUT + RAZORPAY + SAVE ORDER
+window.checkout = async function() {
+
+  if(cart.length === 0){
+    alert("Cart is empty");
+    return;
+  }
+
+  let name = prompt("Enter your name");
+  let phone = prompt("Enter phone number");
+
+  let totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+
   var options = {
-    "key": "YOUR_KEY",
-    "amount": 50000,
+    "key": "YOUR_RAZORPAY_KEY",
+    "amount": totalAmount * 100,
     "currency": "INR",
-    "name": "Blissea Oils",
-    "handler": function (response){
-      alert("Payment Successful");
+    "name": "Blíssea Oils",
+    "description": "Order Payment",
+    "handler": async function (response){
+
+      // SAVE ORDER TO FIREBASE
+      await addDoc(collection(db, "orders"), {
+        name: name,
+        phone: phone,
+        items: cart,
+        amount: totalAmount,
+        paymentId: response.razorpay_payment_id,
+        status: "Processing",
+        date: new Date().toLocaleString()
+      });
+
+      alert("Payment Successful 🎉");
+
+      localStorage.removeItem("cart");
+      window.location = "track.html";
     }
   };
+
   var rzp = new Razorpay(options);
   rzp.open();
 }
+
+displayCart();
 </script>
 
 </body>
