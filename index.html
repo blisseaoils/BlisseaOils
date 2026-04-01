@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blissea Oils</title>
-
+<title>Blíssea Oils</title>
 <link rel="stylesheet" href="style.css">
 
 <!-- Razorpay -->
@@ -14,62 +13,79 @@
 <body>
 
 <header>
-  <h2 class="logo">Blissea Oils</h2>
+  <h1>Blíssea Oils</h1>
   <nav>
+    <a href="#">Home</a>
     <a href="#products">Shop</a>
-    <a href="#">About</a>
-    <a href="track.html">Track Order</a>
-    <a href="#" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
   </nav>
+
+  <div class="icons">
+    <span onclick="toggleWishlist()">❤️</span>
+    <span onclick="toggleCart()">🛒</span>
+  </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-text">
-    <h1>Feel Better. Naturally.</h1>
-    <p>100% Natural Oils for Pain, Sleep & Hair Wellness</p>
-    <button onclick="scrollToProducts()">Shop Now</button>
-  </div>
-  <img src="images/hero.jpg" class="hero-img">
+  <h2>Pure Wellness. Premium Oils.</h2>
+  <button onclick="scrollToProducts()">Shop Now</button>
 </section>
 
-<!-- PRODUCTS -->
-<section id="products">
-  <h2>Best Sellers</h2>
+<section id="products" class="products"></section>
 
-  <div class="product-grid">
-
-    <div class="product">
-      <img src="images/pain.jpg">
-      <h3>Pain Relief Oil</h3>
-      <p>₹499</p>
-      <button onclick="addToCart('Pain Relief Oil', 499)">Add</button>
-    </div>
-
-    <div class="product">
-      <img src="images/sleep.jpg">
-      <h3>Stress Sleep Roll-on</h3>
-      <p>₹399</p>
-      <button onclick="addToCart('Stress Sleep Roll-on', 399)">Add</button>
-    </div>
-
-    <div class="product">
-      <img src="images/menhair.jpg">
-      <h3>Men Hair Growth Oil</h3>
-      <p>₹599</p>
-      <button onclick="addToCart('Men Hair Growth Oil', 599)">Add</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- CART DRAWER -->
+<!-- CART -->
 <div id="cart" class="cart">
-  <h3>Your Cart</h3>
+  <h2>Cart</h2>
   <ul id="cart-items"></ul>
-  <p>Total: ₹<span id="cart-total">0</span></p>
-  <button onclick="payNow()" class="checkout">Pay Now</button>
+  <h3 id="total"></h3>
+  <button onclick="checkout()">Checkout</button>
 </div>
+
+<!-- WISHLIST -->
+<div id="wishlist" class="wishlist">
+  <h2>Wishlist</h2>
+  <ul id="wishlist-items"></ul>
+</div>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <h2>Customer Reviews</h2>
+  <div id="review-list"></div>
+
+  <input id="review-input" placeholder="Write review">
+  <button onclick="submitReview()">Submit</button>
+</section>
+
+<!-- TRACK -->
+<section>
+  <h2>Track Order</h2>
+  <input id="track-id" placeholder="Enter Order ID">
+  <button onclick="trackOrder()">Track</button>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Email: your@email.com</p>
+  <p>Phone: +91 9999999999</p>
+  <a href="https://instagram.com/YOURPAGE" target="_blank">Instagram</a>
+</section>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_ID",
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
 
 <script src="script.js"></script>
 

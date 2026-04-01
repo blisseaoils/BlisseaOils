@@ -1,51 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Product</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-  <h1>Blíssea Oils</h1>
-</header>
+<h1>Pain Relief Oil</h1>
 
-<div class="product-page">
+<img src="images/pain.jpg" width="300">
 
-  <div class="product-image">
-    <img id="product-img" src="">
-  </div>
+<p>₹499</p>
 
-  <div class="product-info">
-    <h2 id="product-name"></h2>
-    <p id="product-price"></p>
-    <p>100% natural essential oil blend for effective results.</p>
+<p>
+Relieves muscle pain, joint stiffness and stress.
+Made with natural essential oils.
+</p>
 
-    <button onclick="addCurrentProduct()">Add to Cart</button>
-  </div>
-
-</div>
+<button onclick="addToCart('Pain Relief Oil',499)">Add to Cart</button>
 
 <script src="script.js"></script>
-
-<script>
-const params = new URLSearchParams(window.location.search);
-
-document.getElementById("product-name").innerText = params.get("name");
-document.getElementById("product-price").innerText = "₹" + params.get("price");
-document.getElementById("product-img").src = params.get("img");
-
-function addCurrentProduct(){
-  addToCart(
-    params.get("name"),
-    parseInt(params.get("price")),
-    params.get("img")
-  );
-}
-</script>
 
 </body>
 </html>
