@@ -5,17 +5,17 @@ function scrollToProducts() {
 let products = [
   {
     name: "Hair Growth Oil",
-    price: 699,
+    price: 230,
     img: "images/menhair.jpg"
   },
   {
-    name: "Pain Relief Oil",
-    price: 499,
+    name: "Pain Recovery Roll On",
+    price: 156,
     img: "images/pain.jpg"
   },
   {
-    name: "Sleep Relax Oil",
-    price: 599,
+    name: "Stressless Sleep Oil Blend",
+    price: 105,
     img: "images/sleep.jpg"
   }
 ];
