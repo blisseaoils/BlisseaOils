@@ -1,52 +1,35 @@
-function scrollToProducts() {
-  document.getElementById("products").scrollIntoView();
-}
-
 let products = [
-  {
-    name: "Hair Growth Oil",
-    price: 230,
-    img: "images/menhair.jpg"
-  },
-  {
-    name: "Pain Recovery Roll On",
-    price: 156,
-    img: "images/pain.jpg"
-  },
-  {
-    name: "Stressless Sleep Oil Blend",
-    price: 105,
-    img: "images/sleep.jpg"
-  }
+  {name:"Men Hair Oil", price:699, img:"images/menhair.jpg"},
+  {name:"Sleep Oil", price:599, img:"images/sleep.jpg"},
+  {name:"Pain Recovery Oil", price:499, img:"images/pain.jpg"}
 ];
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+function displayProducts(){
+  let box = document.getElementById("product-list");
+  box.innerHTML="";
 
-function displayProducts() {
-  let container = document.getElementById("product-list");
-  container.innerHTML = "";
-
-  products.forEach((p, i) => {
-    container.innerHTML += `
-      <div class="product">
-        <img src="${p.img}">
-        <h3>${p.name}</h3>
-        <p>₹${p.price}</p>
-        <button onclick="addToCart(${i})">Add to Cart</button>
-        <button onclick="addToWishlist(${i})">❤️</button>
-      </div>
-    `;
+  products.forEach((p,i)=>{
+    box.innerHTML += `
+    <div class="product">
+      <img src="${p.img}" width="100%">
+      <h3>${p.name}</h3>
+      <p>₹${p.price}</p>
+      <button onclick="addToCart(${i})">Add to Cart</button>
+      <button onclick="wishlist(${i})">❤️</button>
+    </div>`;
   });
 }
 
-function addToCart(i) {
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function addToCart(i){
   cart.push(products[i]);
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Added to cart");
+  alert("Added");
 }
 
-function addToWishlist(i) {
-  alert("Added to wishlist");
+function wishlist(i){
+  alert("Saved ❤️");
 }
 
 displayProducts();

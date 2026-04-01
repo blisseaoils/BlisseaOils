@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head><title>Cart</title></head>
+<body>
+
+<h2>Your Cart</h2>
+<div id="cart"></div>
+<button onclick="checkout()">Pay Now</button>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let box = document.getElementById("cart");
+
+cart.forEach(p=>{
+  box.innerHTML += `<p>${p.name} - ₹${p.price}</p>`;
+});
+
+function checkout(){
+  alert("Connect Razorpay here");
+}
+</script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+function checkout(){
+  var options = {
+    "key": "YOUR_KEY",
+    "amount": 50000,
+    "currency": "INR",
+    "name": "Blissea Oils",
+    "handler": function (response){
+      alert("Payment Successful");
+    }
+  };
+  var rzp = new Razorpay(options);
+  rzp.open();
+}
+</script>
+
+</body>
+</html>
