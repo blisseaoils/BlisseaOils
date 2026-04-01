@@ -2,17 +2,21 @@
 <html>
 <head>
 <title>Track Order</title>
-<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<h1>Track Your Order</h1>
+<h2>Track Your Order</h2>
+<input type="text" placeholder="Enter Order ID">
+<button onclick="track()">Track</button>
 
-<input id="track-id" placeholder="Enter Order ID">
-<button onclick="trackOrder()">Track</button>
+<p id="result"></p>
 
-<script src="script.js"></script>
+<script>
+function track() {
+  document.getElementById("result").innerText =
+    "Your order is being processed 🚚";
+}
+</script>
 
 </body>
 </html>

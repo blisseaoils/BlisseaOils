@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blíssea Oils</title>
 <link rel="stylesheet" href="style.css">
-
-<!-- Razorpay -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
 <body>
@@ -17,77 +14,38 @@
   <nav>
     <a href="#">Home</a>
     <a href="#products">Shop</a>
-    <a href="#reviews">Reviews</a>
     <a href="#contact">Contact</a>
+    <a href="track.html">Track Order</a>
   </nav>
-
-  <div class="icons">
-    <span onclick="toggleWishlist()">❤️</span>
-    <span onclick="toggleCart()">🛒</span>
-  </div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
-  <h2>Pure Wellness. Premium Oils.</h2>
-  <button onclick="scrollToProducts()">Shop Now</button>
+  <div class="hero-content">
+    <h2>Natural Healing for Modern Life</h2>
+    <p>Pure essential oils for your body & mind</p>
+    <button onclick="scrollToProducts()">Shop Now</button>
+  </div>
 </section>
 
-<section id="products" class="products"></section>
-
-<!-- CART -->
-<div id="cart" class="cart">
-  <h2>Cart</h2>
-  <ul id="cart-items"></ul>
-  <h3 id="total"></h3>
-  <button onclick="checkout()">Checkout</button>
-</div>
-
-<!-- WISHLIST -->
-<div id="wishlist" class="wishlist">
-  <h2>Wishlist</h2>
-  <ul id="wishlist-items"></ul>
-</div>
-
-<!-- REVIEWS -->
-<section id="reviews">
-  <h2>Customer Reviews</h2>
-  <div id="review-list"></div>
-
-  <input id="review-input" placeholder="Write review">
-  <button onclick="submitReview()">Submit</button>
-</section>
-
-<!-- TRACK -->
-<section>
-  <h2>Track Order</h2>
-  <input id="track-id" placeholder="Enter Order ID">
-  <button onclick="trackOrder()">Track</button>
+<!-- PRODUCTS -->
+<section id="products">
+  <h2>Our Products</h2>
+  <div class="products" id="product-list"></div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <h2>Contact</h2>
-  <p>Email: your@email.com</p>
-  <p>Phone: +91 9999999999</p>
-  <a href="https://instagram.com/YOURPAGE" target="_blank">Instagram</a>
+  <h2>Contact Us</h2>
+  <p>Email: blisseablend.com</p>
+  <p>Phone: 6239475725</p>
+  <p>Instagram: <a href="https://instagram.com" target="_blank">Visit Page</a></p>
 </section>
 
-<!-- FIREBASE -->
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
-
-<script>
-const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_ID",
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-</script>
+<footer>
+  <p>© 2026 Blíssea Oils</p>
+</footer>
 
 <script src="script.js"></script>
-
 </body>
 </html>
